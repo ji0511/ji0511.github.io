@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{margin: 0;padding:0; }
+        ul{list-style: none;}
+        #slide { width: 320px; height: 240px; margin: 50px auto; position: relative;  }
+        #wrap { width: 100%; height:100% ; overflow: hidden; }
+        /* #wrap ul { width: 960px;} */
+        #wrap ul li {
+            float: left;width: 320px; height: 240px;
+        }
+        #slide p {
+            width: 50px; height: 50px; position: absolute; top:50%; margin-top: -25px;
+        }
+        #slide .prev {right:calc(100% + 20px);}
+        #slide .next {left:calc(100% + 20px);}
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        $(function() {
+            $('#wrap ul').css({width: $('#wrap ul li').length*320});
+            $('#wrap ul').prepend($('#wrap ul li:last')).css({marginLeft:-320});
+
+            //이번버튼 클릭시
+            $('.prev').click(function() {
+                $('#wrap ul:not(:animated)').animate({marginLeft:0},function() {
+                    $('#wrap ul').append($('#wrap ul li:last')).css({marginLeft:-320});
+                });
+            });
+
+            //다음버튼 클릭시
+            $('.next').click(function() {
+                $('#wrap ul:not(:animated)').animate({marginLeft:-640},function() {
+                    $('#wrap ul').append($('#wrap ul li:first')).css({marginLeft:-320});
+                });
+            });
+
+            //자동슬라이드
+            setInterval(function() {
+                $('.next').click();
+            }, 2000);
+        });
+    </script>
+</head>
+<body>
+    <div id="slide">
+        <div id="wrap">
+            <ul>
+                <li><img src="./img1/img1/food1.jpg" alt=""></li>
+                <li><img src="./img1/img1/food2.jpg" alt=""></li>
+                <li><img src="./img1/img1/food3.jpg" alt=""></li>
+            </ul>
+        </div>
+        <p class="prev"><img src="./img1/img1/btn_prev.png" alt="이전으로"/></p>
+        <p class="next"><img src="./img1/img1/btn_next.png" alt="다음으로"/></p>
+    </div>
+</body>
+</html>
